@@ -1,116 +1,94 @@
 # QuantView — Offline Trading Platform
 
-A full-stack offline trading platform with real-time stock data visualization,
-technical analysis indicators, and financial metrics — all running locally.
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
+[![Node](https://img.shields.io/badge/node-18%2B-green)](https://nodejs.org/)
 
-## Architecture
+A local-first, full-stack offline trading platform with interactive stock charts, technical indicators and financial metrics — designed for research and backtesting.
 
-```text
-offline-trading-platform/
-├── backend/                    # FastAPI Python backend
-│   ├── app/
-│   │   ├── api/v1/            # REST API endpoints
-│   │   │   ├── health.py      # Health check
-│   │   │   └── stock.py       # Stock data (search, kline, finance)
-│   │   ├── core/
-│   │   │   └── config.py      # App settings & environment config
-│   │   ├── schemas/           # Pydantic models
-│   │   │   ├── common.py      # ApiResponse, ApiError
-│   │   │   └── market.py      # KLineBar, FinancialIndicators, etc.
-│   │   ├── services/
-│   │   │   └── stock_service.py  # Data fetching (yfinance, akshare)
-│   │   └── main.py            # FastAPI app factory
-│   └── requirements.txt
-├── frontend/                   # Vue 3 + TypeScript + Vite
-│   ├── src/
-│   │   ├── api/               # HTTP client (axios)
-│   │   ├── assets/            # Styles (SCSS tokens)
-│   │   ├── components/        # Vue components
-│   │   ├── composables/       # Technical indicators & formatters
-│   │   ├── stores/            # Pinia stores (watchlist, theme, etc.)
-│   │   ├── views/             # Dashboard, Settings
-│   │   ├── router/            # Vue Router config
-│   │   └── main.ts            # App entry
-│   ├── index.html
-│   ├── vite.config.ts
-│   └── package.json
-├── deploy-local.ps1            # Windows local deployment script
-├── build-frontend.sh           # Frontend build script
-├── setup-server.sh             # Server setup script
-└── .gitignore
-```
+- Live demo: Develop locally (no cloud required)
 
-## Tech Stack
+## Table of contents
 
-### Backend
+- [Screenshot](#screenshot)
+- [Quick start](#quick-start)
+- [Architecture](#architecture)
+- [Tech stack](#tech-stack)
+- [Features](#features)
+- [API](#api)
+- [Environment variables](#environment-variables)
+- [Contributing](#contributing)
+- [License](#license)
 
-- **FastAPI** — async Python web framework
-- **Pydantic** — data validation & settings management
-- **yfinance** / **akshare** — stock market data sources
-- **backtrader** — backtesting engine
-- **pandas** / **numpy** — data processing
+## Screenshot
 
-### Frontend
-
-- **Vue 3** — Composition API with `<script setup>`
-- **TypeScript** — type-safe development
-- **Vite** — fast dev server & build tool
-- **ECharts** — interactive financial charts (candlestick, line, radar)
-- **Element Plus** — UI component library
-- **Pinia** — state management
-- **SCSS** — design tokens & theming
-
-## Features
-
-- **Stock Search** — search by symbol or company name (US, HK, CN markets)
-- **K-Line Charts** — candlestick & line views with multiple timeframes (1m to 10y)
-- **Technical Indicators** — MA, EMA, MACD, RSI, KDJ, BOLL
-- **Financial Radar** — profitability moat visualization
-  (ROE, ROA, gross margin, etc.)
-- **Watchlist** — track your favorite stocks
-- **Dark Theme** — professional dark UI with customizable color schemes
-- **Multi-language** — i18n support (Chinese / English)
-- **Offline-first** — all data fetched from public APIs, no cloud dependency
+![App screenshot](./assets/screenshot.png)
 
 ## Quick Start
 
-### Prerequisites
+Prerequisites: Python 3.10+, Node.js 18+, npm or pnpm.
 
-- Python 3.10+
-- Node.js 18+
-- npm or pnpm
+Backend (Windows / macOS / Linux):
 
-### Backend Setup
-
-```bash
+```powershell
 cd backend
 python -m venv .venv
-.venv\Scripts\activate    # Windows
-# source .venv/bin/activate  # Linux/Mac
+# Windows
+.venv\Scripts\activate
+# macOS / Linux
+# source .venv/bin/activate
 
 pip install -r requirements.txt
 uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-### Frontend Setup
+Frontend:
 
 ```bash
 cd frontend
-npm install
+npm install    # or: pnpm install
 npm run dev
 ```
 
-Open <http://localhost:5173> in your browser.
+Open http://localhost:5173 (frontend) and backend API at http://127.0.0.1:8000.
 
-### Windows One-Click Deploy
+One-line (Windows) deploy helper:
 
 ```powershell
 .\deploy-local.ps1
 ```
 
-## API Endpoints
+## Architecture
 
-<!-- markdownlint-disable MD013 -->
+High-level architecture moved to [ARCHITECTURE.md](./ARCHITECTURE.md) — see that file for the full project tree and component notes.
+
+## Tech stack
+
+### Backend
+
+- FastAPI, Pydantic, yfinance / akshare, backtrader, pandas, numpy
+
+### Frontend
+
+- Vue 3 (Composition API), TypeScript, Vite, ECharts, Element Plus, Pinia, SCSS
+
+## Features
+
+- Stock search (US / HK / CN)
+- K-Line / candlestick charts (multiple timeframes)
+- Technical indicators (MA, EMA, MACD, RSI, KDJ, BOLL)
+- Financial radar (ROE, ROA, margins)
+- Watchlist, dark theme, multi-language (zh/en), offline-first
+
+## API
+
+Interactive API docs: http://127.0.0.1:8000/docs
+
+Example curl (search):
+
+```bash
+curl "http://127.0.0.1:8000/api/v1/stock/search?keyword=apple"
+```
 
 | Method | Path                                                          | Description              |
 | ------ | ------------------------------------------------------------- | ------------------------ |
@@ -120,15 +98,11 @@ Open <http://localhost:5173> in your browser.
 | GET    | `/api/v1/stock/kline/batch?symbols={s1},{s2}&period={period}` | Batch K-line data        |
 | GET    | `/api/v1/stock/finance?symbol={symbol}`                       | Get financial indicators |
 
-Interactive API docs at <http://localhost:8000/docs> (development mode).
+## Environment variables
 
-<!-- markdownlint-enable MD013 -->
-
-## Environment Variables
+See backend `.env` and frontend `.env.development` for defaults.
 
 ### Backend (`backend/.env`)
-
-<!-- markdownlint-disable MD013 -->
 
 | Variable               | Default                        | Description                                          |
 | ---------------------- | ------------------------------ | ---------------------------------------------------- |
@@ -137,18 +111,18 @@ Interactive API docs at <http://localhost:8000/docs> (development mode).
 | `APP_VERSION`          | `0.1.0`                        | API version                                          |
 | `HOST`                 | `127.0.0.1`                    | Server host                                          |
 | `PORT`                 | `8000`                         | Server port                                          |
-| `DEBUG`                | `true`                         | Debug mode                                           |
+| `DEBUG`                | `true`                         | Debug mode (set `false` in production)               |
 | `CORS_ALLOWED_ORIGINS` | `http://localhost:5173`        | Allowed CORS origins                                 |
 
 ### Frontend (`frontend/.env.development`)
-
-<!-- markdownlint-disable MD013 -->
 
 | Variable            | Default                 | Description          |
 | ------------------- | ----------------------- | -------------------- |
 | `VITE_API_BASE_URL` | `http://127.0.0.1:8000` | Backend API base URL |
 
-<!-- markdownlint-enable MD013 -->
+## Contributing
+
+Contributions welcome — fork, create a branch, and open a PR. Add tests for new features and run linters where applicable.
 
 ## License
 
