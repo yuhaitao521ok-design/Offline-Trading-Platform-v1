@@ -130,7 +130,6 @@ docker-compose.override.yml
 *.p12
 *.pfx
 secrets/
-!temp_key2.pem
 
 # === Misc ===
 *.gz
