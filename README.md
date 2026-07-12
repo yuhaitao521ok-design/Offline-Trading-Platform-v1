@@ -22,7 +22,7 @@ A local-first, full-stack offline trading platform with interactive stock charts
 
 ## Screenshot
 
-![App screenshot](./screenshot-placeholder.svg)
+![App screenshot](./assets/screenshot.png)
 
 ## Quick Start
 

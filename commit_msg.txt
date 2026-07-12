@@ -1,3 +1,0 @@
-﻿docs: improve README, add ARCHITECTURE.md and screenshot placeholder
-
-Co-authored-by: Copilot App <223556219+Copilot@users.noreply.github.com>
