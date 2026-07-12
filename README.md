@@ -1,10 +1,11 @@
 # QuantView — Offline Trading Platform
 
-A full-stack offline trading platform with real-time stock data visualization, technical analysis indicators, and financial metrics — all running locally.
+A full-stack offline trading platform with real-time stock data visualization,
+technical analysis indicators, and financial metrics — all running locally.
 
 ## Architecture
 
-```
+```text
 offline-trading-platform/
 ├── backend/                    # FastAPI Python backend
 │   ├── app/
@@ -64,7 +65,8 @@ offline-trading-platform/
 - **Stock Search** — search by symbol or company name (US, HK, CN markets)
 - **K-Line Charts** — candlestick & line views with multiple timeframes (1m to 10y)
 - **Technical Indicators** — MA, EMA, MACD, RSI, KDJ, BOLL
-- **Financial Radar** — profitability moat visualization (ROE, ROA, gross margin, etc.)
+- **Financial Radar** — profitability moat visualization
+  (ROE, ROA, gross margin, etc.)
 - **Watchlist** — track your favorite stocks
 - **Dark Theme** — professional dark UI with customizable color schemes
 - **Multi-language** — i18n support (Chinese / English)
@@ -78,7 +80,7 @@ offline-trading-platform/
 - Node.js 18+
 - npm or pnpm
 
-### Backend
+### Backend Setup
 
 ```bash
 cd backend
@@ -90,7 +92,7 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-### Frontend
+### Frontend Setup
 
 ```bash
 cd frontend
@@ -98,7 +100,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173 in your browser.
+Open <http://localhost:5173> in your browser.
 
 ### Windows One-Click Deploy
 
@@ -108,6 +110,8 @@ Open http://localhost:5173 in your browser.
 
 ## API Endpoints
 
+<!-- markdownlint-disable MD013 -->
+
 | Method | Path                                                          | Description              |
 | ------ | ------------------------------------------------------------- | ------------------------ |
 | GET    | `/api/v1/health`                                              | Health check             |
@@ -116,11 +120,15 @@ Open http://localhost:5173 in your browser.
 | GET    | `/api/v1/stock/kline/batch?symbols={s1},{s2}&period={period}` | Batch K-line data        |
 | GET    | `/api/v1/stock/finance?symbol={symbol}`                       | Get financial indicators |
 
-Interactive API docs at http://localhost:8000/docs (development mode).
+Interactive API docs at <http://localhost:8000/docs> (development mode).
+
+<!-- markdownlint-enable MD013 -->
 
 ## Environment Variables
 
 ### Backend (`backend/.env`)
+
+<!-- markdownlint-disable MD013 -->
 
 | Variable               | Default                        | Description                                          |
 | ---------------------- | ------------------------------ | ---------------------------------------------------- |
@@ -134,9 +142,13 @@ Interactive API docs at http://localhost:8000/docs (development mode).
 
 ### Frontend (`frontend/.env.development`)
 
+<!-- markdownlint-disable MD013 -->
+
 | Variable            | Default                 | Description          |
 | ------------------- | ----------------------- | -------------------- |
 | `VITE_API_BASE_URL` | `http://127.0.0.1:8000` | Backend API base URL |
+
+<!-- markdownlint-enable MD013 -->
 
 ## License
 
